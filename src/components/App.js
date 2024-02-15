@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/App.css";
 
 var colors = [
@@ -18,40 +18,56 @@ var colors = [
 
 const App = () => {
 
-  const [data,setData]=useState({});
+  const [data, setData] = useState([]);
 
-  const handleOnclick = async()=>{
+  
 
-    const responce = await fetch("https://api.quotable.io/random")
-    const result  = await responce.json();
-    setData(result)
-    console.log(data)
-    
+    const fetchData = async()=>{
 
-  }
 
-    return (
-      <div id="main">
-        <div id="wrapper">
+      const responce = await fetch("https://api.quotable.io/random")
+      const result = await responce.json();
+      setData([result])
+      console.log(data)
 
-          <div id="quote-box">
+    }
+
+
+
+  
+
+  useEffect(() =>{
+  
+    fetchData()
+  },[])
+
+  return (
+    <div id="main">
+      <div id="wrapper">
+
+      
+
+
+            <div  id="quote-box">
+
           <div className="quote-text">
-            <i>{data.content}</i>
-
+            <i>{data[0]?.content}</i>
           </div>
+
+
           <div className="quote-author" >
-            <h4>{data.author}</h4>
- 
-          </div>
+            <i>{data[0]?.author}</i>
 
           </div>
-          
-          <div></div>
-          
+
         </div>
-          <button onClick={handleOnclick} id="new-quote" className="button buttons">Get Quote</button>
+          
+        
+
       </div>
-    );
+      <button onClick={fetchData} id="new-quote" className="buttons">Get Quote</button>
+    </div>
+  );
 };
 
 export default App;
