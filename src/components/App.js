@@ -65,7 +65,7 @@ const App = () => {
         
 
       </div>
-      <button onClick={fetchData} id="new-quote" className="buttons">Get Quote</button>
+      <button onClick={fetchData} id="new-quote" className="buttons button">Get Quotes</button>
     </div>
   );
 };
